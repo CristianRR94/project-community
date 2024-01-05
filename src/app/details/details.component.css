@@ -1,0 +1,33 @@
+.listado-imagen {
+  height: 400px;
+  width: 50%;
+  object-fit: cover;
+  border-radius: 30px;
+  float: left;
+  margin-right: 20px;
+}
+
+.listado-encabezado {
+  font-size: 48pt;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #297CD3;
+}
+
+.listado-evento {
+  font-size: 24pt;
+  margin-bottom: 15px;
+  color: #297CD3;
+}
+
+.listado-arrays{
+  font-size: 24pt;
+  margin-bottom: 15px;
+  color: #297CD3;
+}
+
+.listado-asistencia{
+  font-size: 24pt;
+  margin-bottom: 15px;
+  color: #297CD3;
+}

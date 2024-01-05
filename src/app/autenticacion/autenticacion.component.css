@@ -1,0 +1,53 @@
+.ctexto{
+  width: 70%;
+  margin-bottom: 20px;
+  display: inline-block;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.usu
+{
+width: calc(80% - 5px);
+height: 30px;
+display: inline-block;
+box-sizing: border-box;
+margin-bottom: 30px;
+}
+
+.con
+{
+width: calc(80% - 5px);
+display: inline-block;
+box-sizing: border-box;
+height: 30px;
+margin-bottom: 20px;
+}
+
+/* .inicio{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.crear{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+} */
+
+.cuerpo{
+  width: 700px;
+  height: 800px;
+  align-items: center;
+}
+
+.buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}

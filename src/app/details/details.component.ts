@@ -1,20 +1,23 @@
+import { FechaService } from './../fecha.service';
 import { ObservadorService } from './../observador.service';
 import { ListaEventos } from './../lista-eventos';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
-
+/* Fichero donde se ven los detalles del evento */
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule, DatePipe],
   template: `
    <article>
     <img class="listado-imagen" [src]="listaEventos?.imagen" >
     <section class="listado-descripcion">
       <h2 class="listado-encabezado">{{listaEventos?.nombre}}</h2>
-      <p class="listado-evento">{{listaEventos?.tipo}}, {{listaEventos?.fecha}}</p>
+      <p class="listado-evento">{{listaEventos?.tipo}}, {{fechaService.transformDate(listaEventos?.fecha)}}</p>
     </section>
     <section class="listado-arrays">
       <h2 class="listado-participantes">Participantes</h2>
@@ -32,16 +35,22 @@ import { CommonModule } from '@angular/common';
     </section>
    </article>
   `,
-  styleUrl: './details.component.css'
+  styleUrl: './details.component.css',
+  providers: [FechaService, DatePipe]
 })
 export class DetailsComponent {
   route: ActivatedRoute = inject (ActivatedRoute);
   observadorService = inject(ObservadorService);
   listaEventos: ListaEventos | undefined;
+  applyForm = new FormGroup({
 
-  constructor(){
+  })
+  constructor(public fechaService: FechaService){
     const listaEventosId = Number(this.route.snapshot.params["id"])
 
     this.listaEventos = this.observadorService.getListaEventosById(listaEventosId);
+
+
+
   }
 }
