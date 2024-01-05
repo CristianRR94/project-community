@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   template: `
+  <!-- Formulario -->
   <section class="seccion">
     <h2 class="formularioEvento">Crear Evento</h2>
   <form [formGroup]="applyForm" (submit)="submitApplication()">
