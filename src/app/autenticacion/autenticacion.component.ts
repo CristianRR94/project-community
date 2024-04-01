@@ -2,7 +2,7 @@
 
 import { Component } from '@angular/core';
 import { NuevoUsuarioComponent } from '../nuevo-usuario/nuevo-usuario.component';
-import { EventoComponent } from '../evento/evento.component';
+import { IndexComponent } from '../eventoIndex/index.component';
 import { Router } from '@angular/router';
 import { AutenticacionService, DataInicioSesion } from '../servicios/servicios-autenticacion/autenticacion.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -10,7 +10,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-autenticacion',
   standalone: true,
-  imports: [EventoComponent, NuevoUsuarioComponent, ReactiveFormsModule],
+  imports: [IndexComponent, NuevoUsuarioComponent, ReactiveFormsModule],
   template: `
    <section>
       <form method="post" [formGroup] = "inicio" (submit)= "autenticarUsuario()">
@@ -61,7 +61,7 @@ export class AutenticacionComponent {
       next: (response) => {
         localStorage.setItem("token", response.token);
         console.log(response);
-        this.router.navigateByUrl("/evento");
+        this.router.navigateByUrl("/index");
       },
     });
   }

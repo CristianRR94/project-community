@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { EventoComponent } from './evento/evento.component';
+import { IndexComponent } from './eventoIndex/index.component';
 //import { ListaEventosComponent } from './lista-eventos/lista-eventos.component';
 import { RouterModule } from '@angular/router';
 import { AutenticacionComponent } from './autenticacion/autenticacion.component';
@@ -21,7 +21,7 @@ import { AutenticacionComponent } from './autenticacion/autenticacion.component'
     </section>
   </main>`,
   styleUrl: './app.component.css',
-  imports: [EventoComponent, RouterModule, AutenticacionComponent]
+  imports: [IndexComponent, RouterModule, AutenticacionComponent]
 })
 export class AppComponent {
 

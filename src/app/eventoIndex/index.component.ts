@@ -40,9 +40,9 @@ import { NuevoEventoComponent } from '../nuevo-evento/nuevo-evento.component';
     </section>
 
   `,
-  styleUrl: './evento.component.css'
+  styleUrl: './index.component.css'
 })
-export class EventoComponent {
+export class IndexComponent {
 listaEventosListado: ListaEventos [] = [];
 observadorService: ObservadorService = inject (ObservadorService);
 
