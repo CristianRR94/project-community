@@ -14,7 +14,7 @@ component: AutenticacionComponent,
 title: "Autenticacion page",
 },
   {
-  path: "evento",
+  path: "index",
   component: IndexComponent,
   title: "Home Page",
 },
