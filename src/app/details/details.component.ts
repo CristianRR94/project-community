@@ -31,7 +31,7 @@ import { DatePipe } from '@angular/common';
       </table>
     </section>
     <section class="listado-asistencia">
-      <h3>Asistencia: {{listaEventos?.asistencia ? "Si" : "No"}}</h3>
+      <h3>Asistencia: {{listaEventos?.administrador ? "Si" : "No"}}</h3>
     </section>
    </article>
   `,
@@ -48,7 +48,9 @@ export class DetailsComponent {
   constructor(public fechaService: FechaService){
     const listaEventosId = Number(this.route.snapshot.params["id"])
 
-    this.listaEventos = this.observadorService.getListaEventosById(listaEventosId);
+    this.observadorService.getListaEventosById(listaEventosId).subscribe(eventos => {
+      this.listaEventos = eventos;
+    });
 
 
 

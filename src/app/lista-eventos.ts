@@ -1,11 +1,13 @@
 
 export interface ListaEventos {
-  id: number,
+  id?: number,
   nombre: string,
   tipo: string,
-  imagen: string,
-  asistencia: boolean,
+  imagen?: string,
+  administrador: boolean,
   fecha: Date,
-  personas: string[],
-  elementos: string[],
+  personas?: string[],
+  elementos?: string[],
 }
+
+

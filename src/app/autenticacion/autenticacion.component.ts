@@ -15,14 +15,14 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
    <section>
       <form method="post" [formGroup] = "inicio" (submit)= "autenticarUsuario()">
         <div class="ctexto">
-          <input type="text" class="usu" placeholder="Usuario" formControlName="readName">
-          <input type="text" class="con" placeholder="contraseña" formControlName="readPassword">
+          <input type="text" class="introBut" placeholder="Usuario" formControlName="readName">
+          <input type="text" class="introBut" placeholder="contraseña" formControlName="readPassword">
         </div>
 
         <div class="buttons">
-          <button class="inicio" type="submit" id="inicio" >Iniciar Sesión</button>
+          <button class="primary" type="submit" id="inicio" >Iniciar Sesión</button>
 
-          <button class="crear" type="button" id="crear" (click)="login()">Crear cuenta</button>
+          <button class="primary" type="button" id="crear" (click)="login()">Crear cuenta</button>
         </div>
       </form>
     </section>

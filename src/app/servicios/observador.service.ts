@@ -1,6 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ListaEventos } from '../lista-eventos';
-
+import { Observable } from 'rxjs';
 
 
 /* Servicio (lugar centralizado de funciones o datos) */
@@ -8,7 +9,41 @@ import { ListaEventos } from '../lista-eventos';
   providedIn: 'root'
 })
 export class ObservadorService {
-  protected observadorEventosLista: ListaEventos[] = [
+
+  private apiUrl = "http://localhost:8000/api";
+
+
+
+
+  //constructor() { }
+  constructor(private http: HttpClient) { }
+
+  getListaEventosById(id: number): Observable<ListaEventos>{
+    return this.http.get<ListaEventos>(`${this.apiUrl}/evento/${id}`);
+  }
+
+  obtenerEventos(): Observable<ListaEventos[]>{
+    return this.http.get<ListaEventos[]>(`${this.apiUrl}/evento`);
+  }
+
+  crearEvento(nombreEvento: string,  tipoEvento: string, admin: boolean, fecha: string, elementos: string):
+  Observable<ListaEventos>{
+    const cuerpoEvento = {
+      nombre: nombreEvento,
+      tipo: tipoEvento,
+      admin: admin,
+      fecha: fecha,
+      elementos: elementos
+    };
+    return this.http.post<ListaEventos>(`${this.apiUrl}/crearEvento`, cuerpoEvento);
+  }
+
+}
+
+
+
+
+/* protected observadorEventosLista: ListaEventos[] = [
     {
       "id": 0,
       "nombre": "Cumpleaños de Sara",
@@ -42,21 +77,4 @@ export class ObservadorService {
       "elementos": ["Billetes", "Pasaporte", "DNI"],
     },
 
-  ];
-
-  //constructor() { }
-  constructor() { }
-  /* Devolver lista a la llamada */
-  getAllListaEventos() : ListaEventos[] {
-    return this.observadorEventosLista;
-  }
-  getListaEventosById(id: Number): ListaEventos | undefined {
-    let listaEventos= this.observadorEventosLista.find(listaEventos => listaEventos.id === id);
-      return listaEventos;
-  }
-
-  submitApplication(introducirNombreEvento: string,  introducirNombre: string, introducirFecha: string, introducirObjetos: string){
-    console.log(introducirNombreEvento, introducirNombre, introducirFecha, introducirObjetos);
-  }
-
-}
+  ]; */

@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 
 
 import { Component, inject } from '@angular/core';
@@ -36,7 +37,9 @@ import { NuevoEventoComponent } from '../nuevo-evento/nuevo-evento.component';
       <app-lista-eventos *ngFor="let listaEventos of listaEventosListado" [listaEventos] = "listaEventos"></app-lista-eventos>
     </section>
     <section>
-    <button class="crearNuevo" type="button" id="crearNuevo" (click)="newEvent()">Crear nuevo evento</button>
+
+        <button class="primary" type="button" id="crearNuevo" (click)="newEvent()">Crear nuevo evento</button>
+
     </section>
 
   `,
@@ -46,11 +49,11 @@ export class IndexComponent {
 listaEventosListado: ListaEventos [] = [];
 observadorService: ObservadorService = inject (ObservadorService);
 
-
-
-
 constructor(private router: Router) {
-  this.listaEventosListado = this.observadorService.getAllListaEventos();
+  this.observadorService.obtenerEventos().subscribe(eventos=>{
+    this.listaEventosListado = eventos;
+  });
+
 }
   newEvent(){
     this.router.navigateByUrl("/nuevo-evento");
