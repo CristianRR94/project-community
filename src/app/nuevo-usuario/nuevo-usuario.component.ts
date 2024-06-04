@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CrearUsuario } from '../../../crear-usuario';
 import { UsuarioService } from '../servicios/servicios-login/usuario.service';
 import { HttpClient } from '@angular/common/http';
@@ -28,14 +28,16 @@ import { PostService } from '../servicios/servicios-login/post.service';
     <input id="contrasena" type="password" formControlName="introducirContrasena">
     </div>
     <button type="submit" class="primary">Aceptar</button>
+    <button type="button" class="primary" (click)="atras()">Atrás</button>
   </form>
+
   </section>
   `,
   styleUrl: './nuevo-usuario.component.css'
 })
 export class NuevoUsuarioComponent {
 
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, private router: Router) { }
   route: ActivatedRoute = inject(ActivatedRoute);
   usuarioService = inject(UsuarioService);
 
@@ -59,5 +61,9 @@ export class NuevoUsuarioComponent {
     this.usuario.password = this.applyUser.value.introducirContrasena ?? "";
     this.usuarioService.submitUsuario(this.usuario);
 
+  }
+
+  atras(){
+    this.router.navigateByUrl("");
   }
 }

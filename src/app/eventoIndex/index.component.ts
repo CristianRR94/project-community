@@ -1,14 +1,11 @@
-import { FormGroup } from '@angular/forms';
-
-
-import { Component, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListaEventosComponent } from '../lista-eventos/lista-eventos.component';
 import { ListaEventos } from '../lista-eventos';
 import { ObservadorService } from '../servicios/observador.service';
 import { Router, RouterModule } from '@angular/router';
 import { NuevoEventoComponent } from '../nuevo-evento/nuevo-evento.component';
-
 
 
 /* presenta inputs y los eventos */
@@ -33,8 +30,8 @@ import { NuevoEventoComponent } from '../nuevo-evento/nuevo-evento.component';
       </form>
     </section>
     <!-- Eventos (array)-->
-    <section class="resultados">
-      <app-lista-eventos *ngFor="let listaEventos of listaEventosListado" [listaEventos] = "listaEventos"></app-lista-eventos>
+    <section class="resultados" *ngIf="listaEventosListado.length > 0">
+      <app-lista-eventos *ngFor="let listaEventos of listaEventosListado | keyvalue">{{listaEventos.key}}:{{listaEventos.value}}</app-lista-eventos>
     </section>
     <section>
 
@@ -45,20 +42,29 @@ import { NuevoEventoComponent } from '../nuevo-evento/nuevo-evento.component';
   `,
   styleUrl: './index.component.css'
 })
-export class IndexComponent {
-listaEventosListado: ListaEventos [] = [];
+export class IndexComponent implements OnInit{
+listaEventosListado: ListaEventos []= [];
 observadorService: ObservadorService = inject (ObservadorService);
 
-constructor(private router: Router) {
-  this.observadorService.obtenerEventos().subscribe(eventos=>{
-    this.listaEventosListado = eventos;
+constructor(private router: Router) { }
+
+ngOnInit(){
+  this.observadorService.obtenerEventos().subscribe({
+    next: (respuesta: ListaEventos[])=>{
+    this.listaEventosListado = respuesta || [];
+    },
+    error: (error: any)=>{
+      console.log("Error al obtener eventos", error)
+      this.listaEventosListado = [];
+    }
   });
 
 }
+
   newEvent(){
-    this.router.navigateByUrl("/nuevo-evento");
+    setTimeout(()=> {
+      this.router.navigateByUrl("/nuevo-evento");
+    },100);
 
-}
-
-
+  }
 }

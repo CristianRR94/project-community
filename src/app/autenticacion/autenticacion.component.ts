@@ -16,7 +16,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
       <form method="post" [formGroup] = "inicio" (submit)= "autenticarUsuario()">
         <div class="ctexto">
           <input type="text" class="introBut" placeholder="Usuario" formControlName="readName">
-          <input type="text" class="introBut" placeholder="contraseña" formControlName="readPassword">
+          <input type="password" class="introBut" placeholder="contraseña" formControlName="readPassword">
         </div>
 
         <div class="buttons">
@@ -60,7 +60,6 @@ export class AutenticacionComponent {
     this.autenticacionService.iniciarSesion(this.dataInicioSesion).subscribe({
       next: (response) => {
         localStorage.setItem("token", response.token);
-        console.log(response);
         this.router.navigateByUrl("/index");
       },
     });

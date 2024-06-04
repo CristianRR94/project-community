@@ -1,8 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { IndexComponent } from './eventoIndex/index.component';
-//import { ListaEventosComponent } from './lista-eventos/lista-eventos.component';
+import { Component} from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AutenticacionComponent } from './autenticacion/autenticacion.component';
+
 
 
 /* plantilla que aparecerá en pantalla */
@@ -20,8 +18,8 @@ import { AutenticacionComponent } from './autenticacion/autenticacion.component'
       <router-outlet></router-outlet>
     </section>
   </main>`,
-  styleUrl: './app.component.css',
-  imports: [IndexComponent, RouterModule, AutenticacionComponent]
+  styleUrls: ['./app.component.css'],
+  imports: [RouterModule]
 })
 export class AppComponent {
 

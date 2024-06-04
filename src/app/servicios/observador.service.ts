@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ListaEventos } from '../lista-eventos';
-import { Observable } from 'rxjs';
+import { Observable, of} from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 
 /* Servicio (lugar centralizado de funciones o datos) */
@@ -12,69 +13,36 @@ export class ObservadorService {
 
   private apiUrl = "http://localhost:8000/api";
 
-
-
-
   //constructor() { }
   constructor(private http: HttpClient) { }
 
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem("token");
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+    return headers;
+  }
+
   getListaEventosById(id: number): Observable<ListaEventos>{
-    return this.http.get<ListaEventos>(`${this.apiUrl}/evento/${id}`);
+    return this.http.get<ListaEventos>(`${this.apiUrl}/evento/${id}`, { headers: this.getAuthHeaders() });
   }
 
   obtenerEventos(): Observable<ListaEventos[]>{
-    return this.http.get<ListaEventos[]>(`${this.apiUrl}/evento`);
-  }
+   /*  const token = localStorage.getItem("token");
+    const headers = new HttpHeaders().set(": ", `Bearer ${token}`); */
+    return this.http.get<ListaEventos[]>(`${this.apiUrl}/evento`, { headers: this.getAuthHeaders()}).pipe(catchError(error=>{
+      console.error(error);
+      return of([]);
+    })
+  );}
 
-  crearEvento(nombreEvento: string,  tipoEvento: string, admin: boolean, fecha: string, elementos: string):
-  Observable<ListaEventos>{
-    const cuerpoEvento = {
-      nombre: nombreEvento,
-      tipo: tipoEvento,
-      admin: admin,
-      fecha: fecha,
-      elementos: elementos
-    };
-    return this.http.post<ListaEventos>(`${this.apiUrl}/crearEvento`, cuerpoEvento);
+
+  crearEvento(evento: ListaEventos): Observable<any>{
+
+  return this.http.post(`${this.apiUrl}/evento`, evento, { headers: this.getAuthHeaders() });
   }
 
 }
 
-
-
-
-/* protected observadorEventosLista: ListaEventos[] = [
-    {
-      "id": 0,
-      "nombre": "Cumpleaños de Sara",
-      "tipo": "Cumpleaños",
-      "imagen": "/assets/cumpleaños.png",
-      "asistencia": true,
-      "fecha": new Date (2024,2,12),
-      "personas": ["Sara", "Miguel", "Juan", "Ana", "Sofía"],
-      "elementos": ["Globos", "Bebida", "Comida", "Regalo"],
-    },
-
-    {
-      "id": 1,
-      "nombre": "Comida de empresa",
-      "tipo": "Comida",
-      "imagen": "/assets/foto-brindis.png",
-      "asistencia": false,
-      "fecha": new Date (2024,4,20),
-      "personas": ["Ángel", "Jose", "María", "Ana"],
-      "elementos": ["Entrada", "Traje"],
-    },
-
-    {
-      "id": 2,
-      "nombre": "Viaje Francia",
-      "tipo": "Viaje",
-      "imagen": "/assets/viaje.jpg",
-      "asistencia": true,
-      "fecha": new Date (2024,7,10),
-      "personas": ["Ángel", "Jose", "María", "Ana"],
-      "elementos": ["Billetes", "Pasaporte", "DNI"],
-    },
-
-  ]; */
