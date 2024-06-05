@@ -1,19 +1,18 @@
-
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ObservadorService } from '../servicios/observador.service';
 import { Component, OnInit, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ListaEventos } from '../lista-eventos';
 import { response } from 'express';
 import { error } from 'console';
-import { IGX_COMBO_DIRECTIVES } from 'igniteui-angular';
+
 
 @Component({
   selector: 'app-nuevo-evento',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterModule, IGX_COMBO_DIRECTIVES],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   template: `
   <!-- Formulario -->
   <section class="seccion">
@@ -24,20 +23,23 @@ import { IGX_COMBO_DIRECTIVES } from 'igniteui-angular';
     <input id="nombreEvento" type="text" formControlName="introducirNombreEvento">
 
     <label for="nombre">Tipo de evento</label>
-    <igx-combo
-      id="tipoEvento" [data]='tipo' valueKey="nombreTipo"
-      displayKey="nombreTipo" formControlName="introducirTipo">
-    </igx-combo>
-
-    <label for= "asistencia">Solo creador como administrador</label>
-    <input class="checkbox" type="checkbox" value="1" formControlName="admin">
+    <select class="seccion" id="tipoEvento"  formControlName="introducirTipo">
+      <option *ngFor="let tipo of tipos" [value]="tipo.idTipo">{{ tipo.nombreTipo }}</option>
+    </select>
+    <div *ngIf="applyForm.value.introducirTipo=='7'">
+      <input type="text" placeholder="Introduce tipo" formControlName="otroTipo">
+    </div>
+    <div>
+      <label for= "asistencia" id="labelCaja">Solo creador como administrador</label>
+      <input id="checkbox" type="checkbox" value="1" formControlName="admin">
+    </div>
     <label for="fecha">Fecha</label>
     <input id="fecha" type="date" formControlName="introducirFecha">
 
     <label for="nombreObjeto">Elementos</label>
     <input id="nombreObjeto" type="text" formControlName="introducirElemento">
     <button type="submit" class="primary">Aceptar</button>
-    <button type="button" class="primary" (click)="volverIndex()">Cancelar</button>
+    <button type="button" class="primary" (click)="volverIndex()">Volver</button>
   </form>
 
   </section>
@@ -51,15 +53,16 @@ export class NuevoEventoComponent implements OnInit {
 
     //observadorService = inject(ObservadorService);
 
-    public tipo: {nombreTipo: string, idTipo: number}[]=[];
+    public tipos: {nombreTipo: string, idTipo: number}[]=[];
     ngOnInit(): void {
-      this.tipo = [
-        {nombreTipo: "Compleaños", idTipo: 1},
+      this.tipos = [
+         {nombreTipo: "Compleaños", idTipo: 1},
          {nombreTipo: "Viaje", idTipo: 2},
          {nombreTipo: "Cena", idTipo: 3},
          {nombreTipo: "Comida", idTipo: 4},
-         {nombreTipo: "Viaje", idTipo: 5},
-         {nombreTipo: "Otro", idTipo: 6}];
+         {nombreTipo: "Reunión", idTipo: 5},
+         {nombreTipo: "Cita", idTipo: 6},
+         {nombreTipo: "Otro", idTipo: 7}];
     }
 
 
@@ -74,6 +77,7 @@ export class NuevoEventoComponent implements OnInit {
 
     introducirNombreEvento: new FormControl(""),
     introducirTipo: new FormControl(""),
+    otroTipo: new FormControl(""),
     admin: new FormControl(),
     introducirFecha: new FormControl(),
     introducirElemento: new FormControl(""),

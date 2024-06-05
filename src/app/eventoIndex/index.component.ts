@@ -6,6 +6,7 @@ import { ListaEventos } from '../lista-eventos';
 import { ObservadorService } from '../servicios/observador.service';
 import { Router, RouterModule } from '@angular/router';
 import { NuevoEventoComponent } from '../nuevo-evento/nuevo-evento.component';
+import { FormsModule } from '@angular/forms';
 
 
 /* presenta inputs y los eventos */
@@ -13,7 +14,7 @@ import { NuevoEventoComponent } from '../nuevo-evento/nuevo-evento.component';
 @Component({
   selector: 'app-evento',
   standalone: true,
-  imports: [CommonModule, ListaEventosComponent, RouterModule, NuevoEventoComponent],
+  imports: [CommonModule, ListaEventosComponent, RouterModule, NuevoEventoComponent, FormsModule],
   template: `
   <!-- Inputs -->
     <section>
@@ -25,13 +26,17 @@ import { NuevoEventoComponent } from '../nuevo-evento/nuevo-evento.component';
     </section>
     <section>
       <form>
-        <input type="text" placeholder="Filtrar por eventos">
-        <button class="primary" type="button" id="buscar">Buscar</button>
+        <label for ="buscar">Filtrar Eventos</label>
+        <select class="primary" [(ngModel)]= "filtrar" name="todos" id="buscar" (change)="filtrarEventos()">
+          <option value="todos">Todos</option>
+          <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+        </select>
       </form>
     </section>
     <!-- Eventos (array)-->
-    <section class="resultados" *ngIf="listaEventosListado.length > 0">
-      <app-lista-eventos *ngFor="let listaEventos of listaEventosListado | keyvalue">{{listaEventos.key}}:{{listaEventos.value}}</app-lista-eventos>
+    <section class="resultados">
+
+      <app-lista-eventos [listaEventos]="listaEventosListado"></app-lista-eventos>
     </section>
     <section>
 
@@ -43,16 +48,27 @@ import { NuevoEventoComponent } from '../nuevo-evento/nuevo-evento.component';
   styleUrl: './index.component.css'
 })
 export class IndexComponent implements OnInit{
-listaEventosListado: ListaEventos []= [];
-observadorService: ObservadorService = inject (ObservadorService);
 
-constructor(private router: Router) { }
+listaEventosListado: ListaEventos []= [];
+eventosFiltrado: ListaEventos[]= [];
+filtrar: string = "";
+tipos: string[]= ["Cumpleaños", "Viaje", "Cena", "Comida", "Reunion", "Cita", "Otro"];
+
+constructor(private router: Router, private observadorService: ObservadorService) { }
 
 ngOnInit(){
   this.observadorService.obtenerEventos().subscribe({
-    next: (respuesta: ListaEventos[])=>{
-    this.listaEventosListado = respuesta || [];
-    },
+    next: (respuesta: any)=>{
+      if(respuesta.eventos){
+        this.listaEventosListado = respuesta;
+        this.eventosFiltrado = this.listaEventosListado;
+      }
+
+      else {
+        console.log(respuesta);
+        this.listaEventosListado = [];
+        this.eventosFiltrado = [];
+    }},
     error: (error: any)=>{
       console.log("Error al obtener eventos", error)
       this.listaEventosListado = [];
@@ -60,6 +76,19 @@ ngOnInit(){
   });
 
 }
+
+filtrarEventos(){
+  if(this.filtrar && this.filtrar != "todos"){
+
+    this.eventosFiltrado = this.listaEventosListado.filter(evento =>
+      evento.tipo == this.filtrar
+    );
+  }
+  else {
+    this.eventosFiltrado = this.listaEventosListado;
+  }
+}
+
 
   newEvent(){
     setTimeout(()=> {

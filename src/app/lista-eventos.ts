@@ -8,6 +8,8 @@ export interface ListaEventos {
   fecha: Date,
   personas?: string[],
   elementos?: string[],
+  created_at?: string;
+  updated_at?: string;
 }
 
 
