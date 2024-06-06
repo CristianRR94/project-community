@@ -2,7 +2,7 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Participantes } from '../participantes';
-import { RouterModule } from '@angular/router';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-participantes',
   standalone: true,
@@ -20,17 +20,24 @@ import { RouterModule } from '@angular/router';
 })
 export class ParticipantesComponent {
 
-constructor() { }
+constructor(private route: ActivatedRoute) { }
 
-  private nuevoParticipante: Participantes = {
-    participante: []
-  }
-  applyForm = new FormGroup({
-    introducirParticipante: new FormControl("")
-  })
+private nuevoParticipante: Participantes = {
+  participante: []
+};
 
+applyForm = new FormGroup({
+  introducirParticipante: new FormControl("")
+})
+addParticipante(){
+  const listaEventosId = Number(this.route.snapshot.params['id']);
+  if(this.nuevoParticipante){}
+  this.nuevoParticipante.participante = this.applyForm.value.introducirParticipante?.split(",") ?? [];
+  console.log(this.nuevoParticipante);
+}
 
-  addParticipante(){
-    this.nuevoParticipante.participante = this.applyForm.value.introducirParticipante?.split(",") ?? [];
-  }
+ngOnInit(){
+  const listaEventosId = Number(this.route.snapshot.params["id"]);
+
+}
 }

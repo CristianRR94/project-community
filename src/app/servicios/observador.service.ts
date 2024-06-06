@@ -17,6 +17,7 @@ export class ObservadorService {
   //constructor() { }
   constructor(private http: HttpClient) { }
 
+  //comprueba que exista el token para realizar acciones
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem("token");
     let headers = new HttpHeaders();
@@ -27,11 +28,12 @@ export class ObservadorService {
   }
 
   getListaEventosById(id: number): Observable<ListaEventos>{
+    //no hace falta mapear
     return this.http.get<any>(`${this.apiUrl}/evento/${id}`, { headers: this.getAuthHeaders() });
 
 
   }
-
+    //mostrar los eventos en "detalles"
   obtenerEventos(): Observable<ListaEventos[]>{
     // mapear los eventos para que solo devuelvan el mensaje de la api
     return this.http.get<any>(`${this.apiUrl}/evento`, { headers: this.getAuthHeaders()}).pipe(
@@ -59,13 +61,17 @@ export class ObservadorService {
 
   return this.http.post(`${this.apiUrl}/evento`, evento, { headers: this.getAuthHeaders() });
   }
-
-  addParticipante(particpante: Participantes){
-    return this.http.post(`${this.apiUrl}evento/{id}/participantes`, particpante, { headers: this.getAuthHeaders() });
+  //añadir participante
+  addParticipantes(eventoId: number, nombreParticipante: string): Observable<any>{
+    const persona = {nombreParticipante: nombreParticipante};
+    return this.http.post(`${this.apiUrl}evento/${eventoId}/participante`, persona, { headers: this.getAuthHeaders() });
   }
-  obtenerParticipantes(): Observable<Participantes[]>{
-    console.log("ver: ", this.http.get<any>(`${this.apiUrl}/participante`))
-    return this.http.get<any>(`${this.apiUrl}/participante`);
+  // ver los participantes en "detalles"
+  obtenerParticipantes(eventoId: number): Observable<Participantes[]>{
+    console.log("ver", this.http.get<any>(`${this.apiUrl}/evento/${eventoId}/participantes`));
+    return this.http.get<any>(`${this.apiUrl}/evento/${eventoId}/participantes`, { headers: this.getAuthHeaders()}).pipe(
+      map(response => {return response.mensaje;}));
+
   }
 }
 

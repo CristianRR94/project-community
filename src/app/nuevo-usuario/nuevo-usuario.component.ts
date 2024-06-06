@@ -37,7 +37,7 @@ import { PostService } from '../servicios/servicios-login/post.service';
 })
 export class NuevoUsuarioComponent {
 
-  constructor(private postService: PostService, private router: Router) { }
+  constructor(private router: Router) { }
   route: ActivatedRoute = inject(ActivatedRoute);
   usuarioService = inject(UsuarioService);
 

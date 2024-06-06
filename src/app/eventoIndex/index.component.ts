@@ -55,7 +55,7 @@ filtrar: string = "";
 tipos: string[]= ["Cumpleaños", "Viaje", "Cena", "Comida", "Reunion", "Cita", "Otro"];
 
 constructor(private router: Router, private observadorService: ObservadorService) { }
-
+// obtener elementos
 ngOnInit(){
   this.observadorService.obtenerEventos().subscribe({
     next: (respuesta: any)=>{
@@ -76,12 +76,12 @@ ngOnInit(){
   });
 
 }
-
+  //no funciona(id-string)
 filtrarEventos(){
   if(this.filtrar && this.filtrar != "todos"){
 
     this.eventosFiltrado = this.listaEventosListado.filter(evento =>
-      evento.tipo == this.filtrar
+      evento.tipo = this.filtrar
     );
   }
   else {
@@ -91,9 +91,6 @@ filtrarEventos(){
 
 
   newEvent(){
-    setTimeout(()=> {
       this.router.navigateByUrl("/nuevo-evento");
-    },100);
-
   }
 }

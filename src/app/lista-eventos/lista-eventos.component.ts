@@ -14,7 +14,7 @@ import { Input } from '@angular/core';
   standalone: true,
   imports: [CommonModule, RouterModule, DatePipe],
   template: `
-    <section class="listado"  *ngIf="listaEventos && listaEventos.length > 0">
+    <section class="listado"  *ngIf="listaEventos ">
     <div *ngFor="let evento of listaEventos">
       <img class="listado-imagen" [src]="tipoImagen [evento.tipo]" alt="Imagen de {{evento.nombre}}">
       <h2 class="listado-encabezado">{{evento.nombre}}</h2>
@@ -47,8 +47,6 @@ export class ListaEventosComponent implements OnInit{
   ngOnInit(){
 
     this.observadorService.obtenerEventos().subscribe((data: ListaEventos[]) => {
-
-
         this.listaEventos = data;
       });
 

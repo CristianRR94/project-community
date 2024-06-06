@@ -25,15 +25,15 @@ import { Participantes } from '../participantes';
         <tr>
           <th> Nombre</th>
         </tr>
-        <tr *ngFor="let persona of listaEventos?.personas">
-          <td>{{persona}}</td>
+        <tr *ngFor="let persona of listaParticipantes">
+          <td>{{persona.participante}}</td>
         </tr>
       </table>
     </section>
     <section class="listado-asistencia">
       <h3>Administradores: {{listaEventos?.administrador ? "Todos" : "Creador"}}</h3>
 
-        <button type="button" class="primary" (click)="crearParticipantes()">Añadir Participantes</button>
+        <button type="button" class="primary" (click)="addParticipantes()">Añadir Participantes</button>
 
     </section>
    </article>
@@ -48,23 +48,28 @@ export class DetailsComponent implements OnInit{
   listaParticipantes: Participantes []| undefined;
 
   constructor(private router: Router, private route: ActivatedRoute){
-
+    //establecer los parámetros de la ruta (lo que cambia -> la id)
     const listaEventosId = Number(this.route.snapshot.params["id"])
-
+    //mostrar elementos
     this.observadorService.getListaEventosById(listaEventosId).subscribe(eventos => {
       console.log("Eventos recibidos:", eventos);
       this.listaEventos = eventos;
       console.log("Lista", this.listaEventos);
     });
   }
+  //añadir participante
+  addParticipantes(): void{
+    const listaEventosId = Number(this.route.snapshot.params["id"]);
 
-  crearParticipantes(){
-    const listaEventosId = Number(this.route.snapshot.params["id"])
+
     this.router.navigateByUrl(`crear-participantes/${listaEventosId}`);
-  }
 
-  ngOnInit(){
-    this.observadorService.obtenerParticipantes().subscribe(participantes=> {
+
+  }
+  //obtener los participantes por cada evento
+  ngOnInit(): void{
+    const listaEventosId = Number(this.route.snapshot.paramMap.get('id'));
+    this.observadorService.obtenerParticipantes(listaEventosId).subscribe(participantes=> {
       this.listaParticipantes = participantes;
     })
   }
