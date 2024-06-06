@@ -1,3 +1,5 @@
+import { response } from 'express';
+import { ObservadorService } from './../servicios/observador.service';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -20,20 +22,22 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
 })
 export class ParticipantesComponent {
 
-constructor(private route: ActivatedRoute) { }
+constructor(private route: ActivatedRoute, private observadorService: ObservadorService) { }
 
 private nuevoParticipante: Participantes = {
-  participante: []
+  participante: ""
 };
 
 applyForm = new FormGroup({
   introducirParticipante: new FormControl("")
 })
-addParticipante(){
+addParticipante(){  //enviar id del evento y nombre del participanye
   const listaEventosId = Number(this.route.snapshot.params['id']);
-  if(this.nuevoParticipante){}
-  this.nuevoParticipante.participante = this.applyForm.value.introducirParticipante?.split(",") ?? [];
-  console.log(this.nuevoParticipante);
+  this.nuevoParticipante.participante = this.applyForm.value.introducirParticipante ?? "";
+  this.observadorService.addParticipantes(listaEventosId, this.nuevoParticipante.participante).subscribe();
+  this.applyForm.reset();
+
+
 }
 
 ngOnInit(){

@@ -62,13 +62,14 @@ export class ObservadorService {
   return this.http.post(`${this.apiUrl}/evento`, evento, { headers: this.getAuthHeaders() });
   }
   //añadir participante
-  addParticipantes(eventoId: number, nombreParticipante: string): Observable<any>{
-    const persona = {nombreParticipante: nombreParticipante};
-    return this.http.post(`${this.apiUrl}evento/${eventoId}/participante`, persona, { headers: this.getAuthHeaders() });
+  addParticipantes(eventoId: number, nombrePersona: string): Observable<any>{
+    const persona = {nombreParticipante: nombrePersona};
+    return this.http.post(`${this.apiUrl}/evento/${eventoId}/participante`, persona, { headers: this.getAuthHeaders() });
   }
+
   // ver los participantes en "detalles"
   obtenerParticipantes(eventoId: number): Observable<Participantes[]>{
-    console.log("ver", this.http.get<any>(`${this.apiUrl}/evento/${eventoId}/participantes`));
+
     return this.http.get<any>(`${this.apiUrl}/evento/${eventoId}/participantes`, { headers: this.getAuthHeaders()}).pipe(
       map(response => {return response.mensaje;}));
 
