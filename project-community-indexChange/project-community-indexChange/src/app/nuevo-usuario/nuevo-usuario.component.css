@@ -1,0 +1,125 @@
+:root {
+	--primary-color: #FF5733; /* Tono de naranja */
+	--secondary-color: #297CD3; /* Tono de azul */
+	--background-color: #FFFF00; /* Fondo amarillo */
+	--input-focus-color: #4CAF50; /* Color al enfocar el input */
+	--button-hover-color: #FF5733; /* Color del botón al hacer hover */
+	--animation-duration: 0.5s; /* Duración de la animación */
+  }
+  
+  body {
+	font-family: Arial, sans-serif; /* Fuente más profesional */
+	background-color: var(--background-color); /* Fondo amarillo */
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh; /* Altura mínima de la ventana */
+	animation: backgroundFade var(--animation-duration) ease-in-out; /* Animación de fondo */
+  }
+  
+  .seccion {
+	background-color: white; /* Fondo blanco */
+	border: 2px solid var(--primary-color); /* Borde de color primario */
+	border-radius: 15px; /* Bordes redondeados */
+	padding: 20px; /* Espaciado interno */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+	max-width: 600px; /* Ancho máximo */
+	width: 100%; /* Ancho completo */
+	animation: fadeIn var(--animation-duration) ease-in-out; /* Animación de entrada */
+	text-align: center; /* Centrar el contenido */
+  }
+  
+  h2 {
+	color: var(--primary-color); /* Color primario */
+	margin-bottom: 20px;
+	font-size: 24px; /* Tamaño de la fuente */
+	font-weight: bold; /* Negrita */
+	text-transform: uppercase; /* Transformar a mayúsculas */
+  }
+  
+  form div {
+	margin-bottom: 15px;
+	position: relative; /* Posición relativa para efectos */
+  }
+  
+  label {
+	color: var(--secondary-color); /* Color secundario */
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 12pt;
+	display: block;
+	margin-bottom: 5px;
+  }
+  
+  input {
+	font-size: 16pt;
+	padding: 10px;
+	width: calc(100% - 20px); /* Ancho completo menos el padding */
+	border: none;
+	border-bottom: 2px solid var(--primary-color); /* Borde inferior */
+	background: transparent;
+	transition: border-color var(--animation-duration) ease-in-out; /* Transición de color del borde */
+  }
+  
+  input:focus {
+	border-color: var(--input-focus-color); /* Cambio de color al enfocar */
+	outline: none; /* Sin contorno */
+  }
+  
+  button {
+	padding: 10px 20px;
+	margin: 10px;
+	border: none;
+	background-color: var(--primary-color); /* Color de fondo */
+	color: white; /* Color del texto */
+	border-radius: 5px; /* Bordes redondeados */
+	cursor: pointer;
+	transition: background-color var(--animation-duration) ease-in-out; /* Transición de color */
+  }
+  
+  button:hover {
+	background-color: var(--button-hover-color); /* Cambia el color al hacer hover */
+  }
+  
+  @keyframes backgroundFade {
+	from {
+	  background-color: #FFEB3B; /* Color inicial */
+	}
+	to {
+	  background-color: var(--background-color); /* Color final */
+	}
+  }
+  
+  @keyframes fadeIn {
+	from {
+	  opacity: 0;
+	  transform: translateY(-20px);
+	}
+	to {
+	  opacity: 1;
+	  transform: translateY(0);
+	}
+  }
+  
+  /* Efecto de burbuja */
+  form div:after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	background: rgba(255, 255, 255, 0.3);
+	border-radius: 50%;
+	transition: width 0.4s ease, height 0.4s ease, top 0.4s ease, left 0.4s ease;
+  }
+  
+  form div:hover:after {
+	width: 200%;
+	height: 200%;
+	top: -50%;
+	left: -50%;
+  }
+  

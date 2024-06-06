@@ -1,0 +1,59 @@
+:root {
+  --primary-color: #FF5733; /* Tono de naranja */
+  --border-color: #FFFF00; /* Amarillo para el borde */
+  --background-color: #FFFF00; /* Amarillo para el fondo de la página */
+  --box-background-color: #FF0000; /* Rojo para el recuadro */
+  --animation-duration: 0.5s; /* Duración de la animación */
+}
+
+body {
+  font-family: Arial, sans-serif; /* Fuente más profesional */
+  background-color: var(--background-color); /* Fondo amarillo */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Altura mínima de la ventana */
+}
+
+.listado {
+  background: var(--box-background-color); /* Color de fondo rojo */
+  border: 4px solid var(--border-color); /* Borde amarillo */
+  border-radius: 30px; /* Bordes redondeados */
+  padding: 20px; /* Espaciado interno */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: transform var(--animation-duration) ease-in-out; /* Transición suave */
+  animation: fadeIn var(--animation-duration) ease-in-out; /* Animación de entrada */
+}
+
+.listado:hover {
+  transform: scale(1.02); /* Efecto de agrandamiento al pasar el ratón */
+}
+
+.listado-cabecera {
+  color: var(--primary-color); /* Color primario */
+  padding: 10px 20px 0 20px; /* Espaciado interno */
+  font-size: 24px; /* Tamaño de la fuente */
+  font-weight: bold; /* Negrita */
+  text-align: center; /* Centrar texto */
+}
+
+.listado-imagen {
+  height: 250px;
+  width: 100%;
+  object-fit: cover; /* Ajuste de imagen */
+  border-radius: 30px 30px 0 0; /* Bordes redondeados */
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+

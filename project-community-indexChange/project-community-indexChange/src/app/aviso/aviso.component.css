@@ -1,0 +1,16 @@
+/* Estilos para el componente AvisoComponent */
+
+/* Estilo para el contenedor del aviso */
+.aviso-container {
+    text-align: center; /* Alinear al centro */
+    padding: 20px; /* Espaciado interno */
+    background-color: #FFFF00; /* Fondo amarillo */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  }
+  
+  /* Estilo para el texto del aviso */
+  .aviso-text {
+    font-size: 18px; /* Tamaño de fuente */
+    color: #333; /* Color de texto */
+  }
