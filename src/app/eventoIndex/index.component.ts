@@ -28,15 +28,17 @@ import { FormsModule } from '@angular/forms';
       <form>
         <label for ="buscar">Filtrar Eventos</label>
         <select class="primary" [(ngModel)]= "filtrar" name="todos" id="buscar" (change)="filtrarEventos()">
-          <option value="todos">Todos</option>
-          <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+
+            <option value="todos">Todos</option>
+            <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+
         </select>
       </form>
     </section>
     <!-- Eventos (array)-->
     <section class="resultados">
 
-      <app-lista-eventos [listaEventos]="listaEventosListado"></app-lista-eventos>
+      <app-lista-eventos [listaEventos]="eventosFiltrados"></app-lista-eventos>
     </section>
     <section>
 
@@ -45,7 +47,7 @@ import { FormsModule } from '@angular/forms';
     </section>
 
   `,
-  styleUrl: './index.component.css'
+  styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit{
 
@@ -72,16 +74,16 @@ ngOnInit(){
 }
   //no funciona(id-string)
 filtrarEventos(){
-  if(this.filtrar == "todos"){
-
+  console.log("Filtrar: ", this.filtrar); // Verificar el valor de filtro
+  if (this.filtrar === "todos") {
     this.eventosFiltrados = this.listaEventosListado;
-
-    console.log("Eventos: ", this.filtrar);
+  } else {
+    this.eventosFiltrados = this.listaEventosListado.filter(evento => {
+      console.log("Evento durante filtrado: ", evento); // Verificar la estructura de cada evento
+      return evento.tipo.toLowerCase() === this.filtrar.toLowerCase();
+    });
   }
-  else {
-    this.eventosFiltrados = this.listaEventosListado.filter(evento => evento.tipo == this.filtrar);
-    console.log("Eventos: ", this.eventosFiltrados)
-  }
+  console.log("Eventos filtrados: ", this.eventosFiltrados); // Verificar eventos después del filtrado
 }
 
 
