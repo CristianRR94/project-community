@@ -13,7 +13,7 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
    <section>
     <form method="post" [formGroup]="applyForm" (submit)="addParticipante()">
       <label for="nombreParticipante">Introduce nombre:</label>
-      <input type="text" formControlName="introducirParticipante">
+      <input type="text" formControlName="introducirParticipante" placeholder="Nombre">
       <button type="submit" class="primary">Añadir</button>
     </form>
    </section>

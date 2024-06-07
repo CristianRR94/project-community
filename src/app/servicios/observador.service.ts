@@ -4,6 +4,7 @@ import { ListaEventos } from '../lista-eventos';
 import { Observable, of} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Participantes } from '../participantes';
+import { response } from 'express';
 
 
 /* Servicio (lugar centralizado de funciones o datos) */
@@ -73,6 +74,12 @@ export class ObservadorService {
     return this.http.get<any>(`${this.apiUrl}/evento/${eventoId}/participantes`, { headers: this.getAuthHeaders()}).pipe(
       map(response => {return response.mensaje;}));
 
+  }
+
+  obtenerEventoParticipante(): Observable<ListaEventos[]>{
+    return this.http.get<any>(`${this.apiUrl}/participante/eventos`, { headers: this.getAuthHeaders()}).pipe(map(
+      response => {return response.mensaje}
+    ));
   }
 }
 

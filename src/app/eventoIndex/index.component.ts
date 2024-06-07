@@ -50,42 +50,37 @@ import { FormsModule } from '@angular/forms';
 export class IndexComponent implements OnInit{
 
 listaEventosListado: ListaEventos []= [];
-eventosFiltrado: ListaEventos[]= [];
+eventosFiltrados: ListaEventos[]= [];
 filtrar: string = "";
-tipos: string[]= ["Cumpleaños", "Viaje", "Cena", "Comida", "Reunion", "Cita", "Otro"];
+tipos: string[] = ["Cumpleaños", "Viaje","Cena","Comida","Reunion","Cita","Otro"];
 
 constructor(private router: Router, private observadorService: ObservadorService) { }
 // obtener elementos
 ngOnInit(){
-  this.observadorService.obtenerEventos().subscribe({
-    next: (respuesta: any)=>{
-      if(respuesta.eventos){
+  this.observadorService.obtenerEventoParticipante().subscribe({
+    next: (respuesta: ListaEventos[])=>{
         this.listaEventosListado = respuesta;
-        this.eventosFiltrado = this.listaEventosListado;
-      }
+        this.eventosFiltrados = this.listaEventosListado;
+    },
 
-      else {
-        console.log(respuesta);
+      error: (error: any) =>{
+        console.error("Error al obtener eventos", error);
         this.listaEventosListado = [];
-        this.eventosFiltrado = [];
-    }},
-    error: (error: any)=>{
-      console.log("Error al obtener eventos", error)
-      this.listaEventosListado = [];
+        this.eventosFiltrados = [];
     }
   });
-
 }
   //no funciona(id-string)
 filtrarEventos(){
-  if(this.filtrar && this.filtrar != "todos"){
+  if(this.filtrar == "todos"){
 
-    this.eventosFiltrado = this.listaEventosListado.filter(evento =>
-      evento.tipo = this.filtrar
-    );
+    this.eventosFiltrados = this.listaEventosListado;
+
+    console.log("Eventos: ", this.filtrar);
   }
   else {
-    this.eventosFiltrado = this.listaEventosListado;
+    this.eventosFiltrados = this.listaEventosListado.filter(evento => evento.tipo == this.filtrar);
+    console.log("Eventos: ", this.eventosFiltrados)
   }
 }
 

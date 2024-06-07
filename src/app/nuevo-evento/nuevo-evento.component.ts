@@ -24,9 +24,9 @@ import { error } from 'console';
 
     <label for="nombre">Tipo de evento</label>
     <select class="seccion" id="tipoEvento"  formControlName="introducirTipo">
-      <option *ngFor="let tipo of tipos" [value]="tipo.idTipo">{{ tipo.nombreTipo }}</option>
+      <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
     </select>
-    <div *ngIf="applyForm.value.introducirTipo=='7'">
+    <div *ngIf="applyForm.value.introducirTipo=='Otro'">
       <input type="text" placeholder="Introduce tipo" formControlName="otroTipo">
     </div>
     <div>
@@ -53,16 +53,16 @@ export class NuevoEventoComponent implements OnInit {
 
     //observadorService = inject(ObservadorService);
 
-    public tipos: {nombreTipo: string, idTipo: number}[]=[];
+    public tipos: string[]=[];
     ngOnInit(): void {
       this.tipos = [
-         {nombreTipo: "Compleaños", idTipo: 1},
-         {nombreTipo: "Viaje", idTipo: 2},
-         {nombreTipo: "Cena", idTipo: 3},
-         {nombreTipo: "Comida", idTipo: 4},
-         {nombreTipo: "Reunión", idTipo: 5},
-         {nombreTipo: "Cita", idTipo: 6},
-         {nombreTipo: "Otro", idTipo: 7}];
+         "Cumpleaños",
+         "Viaje",
+         "Cena",
+         "Comida",
+         "Reunión",
+         "Cita",
+         "Otro",];
     }
 
 
@@ -86,16 +86,17 @@ export class NuevoEventoComponent implements OnInit {
 
 
   crearEvento(){
-      /*     let fecha = this.applyForm.value.introducirFecha;
-      if (fecha){
-        this.evento.fecha = new Date(fecha);
-      }
-      else{
-        this.evento.fecha = new Date(Date.now());
-      }; */
+
       this.evento.nombre = this.applyForm.value.introducirNombreEvento ?? "";
       const tipoEvento = this.applyForm.value.introducirTipo;
-      this.evento.tipo = tipoEvento ? tipoEvento: "";
+      if(tipoEvento == "7"){
+        this.evento.tipo = this.applyForm.value.otroTipo ?? "Otro";
+      }
+      else {
+
+        this.evento.tipo = this.applyForm.value.introducirTipo ?? "";
+      }
+
       this.evento.administrador = this.applyForm.value.admin ?? false;
       this.evento.fecha = this.applyForm.value.introducirFecha ?? new Date().toString().substring(0, 10);
       this.evento.elementos = this.applyForm.value.introducirElemento?.split(",") ?? [];

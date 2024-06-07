@@ -43,11 +43,10 @@ import { Participantes } from '../participantes';
 })
 export class DetailsComponent implements OnInit{
 
-  observadorService = inject(ObservadorService);
   listaEventos: ListaEventos | undefined;
   listaParticipantes: Participantes []| undefined;
 
-  constructor(private router: Router, private route: ActivatedRoute){
+  constructor(private router: Router, private route: ActivatedRoute, private observadorService: ObservadorService){
     //establecer los parámetros de la ruta (lo que cambia -> la id)
     const listaEventosId = Number(this.route.snapshot.params["id"])
     //mostrar elementos
@@ -71,7 +70,9 @@ export class DetailsComponent implements OnInit{
     const listaEventosId = Number(this.route.snapshot.paramMap.get('id'));
     this.observadorService.obtenerParticipantes(listaEventosId).subscribe(participantes=> {
       this.listaParticipantes = participantes;
-    })
+      console.log(this.listaEventos?.tipo)
+    });
+
   }
 
 
