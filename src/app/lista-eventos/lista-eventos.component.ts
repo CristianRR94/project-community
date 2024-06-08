@@ -17,12 +17,15 @@ import { Input } from '@angular/core';
   template: `
     <section class="listado"  *ngIf="listaEventos.length; else mensaje">
     <div *ngFor="let evento of listaEventos">
+    <a [routerLink]="['/details', evento.id]">
       <img class="listado-imagen" [src]="tipoImagen[evento.tipo]" alt="Imagen de {{evento.nombre}}">
       <h2 class="listado-encabezado">{{evento.nombre}}</h2>
       <p class="listado-evento">{{evento.tipo}}, {{evento.fecha}}</p>
-      <a [routerLink]="['/details', evento.id]">Información</a>
+      </a>
       </div>
+
     </section>
+
     <ng-template #mensaje>
       <h1>No hay eventos</h1>
     </ng-template>

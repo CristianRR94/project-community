@@ -46,6 +46,19 @@ body {
   border-radius: 30px 30px 0 0; /* Bordes redondeados */
 }
 
+/* -- Seleccionar elemento para ir a detalles -- */
+.evento-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.evento-link:hover {
+  cursor: pointer;
+}
+/* -- Seleccionar elemento para ir a detalles -- */
+
+
 @keyframes fadeIn {
   from {
       opacity: 0;
