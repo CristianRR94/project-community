@@ -43,7 +43,7 @@ import { ListaEventos } from '../lista-eventos';
   styleUrl: './mod-evento.component.css'
 })
 export class ModEventoComponent {
-
+  listaEventos?: ListaEventos;
   constructor(private observadorService: ObservadorService, private router: Router, private route: ActivatedRoute) { }
 
   public tipos: string[]=[];
@@ -56,8 +56,28 @@ export class ModEventoComponent {
        "Reunión",
        "Cita",
        "Otro",];
-  }
 
+    //Obtener los valores del evento para que estén asignados al inicio
+    const listaEventosId = Number(this.route.snapshot.params["id"])
+    //mostrar elementos
+    this.observadorService.getListaEventosById(listaEventosId).subscribe(evento => {
+
+      if (evento) {
+        this.listaEventos = evento;
+        const elementos = Array.isArray(evento.elementos) ? evento.elementos.join(", ") : "";
+        this.applyForm.patchValue({
+          introducirNombreEvento: evento.nombre,
+          introducirTipo: evento.tipo,
+          otroTipo: evento.tipo === "Otro" ? evento.tipo : "",
+          admin: evento.administrador,
+          introducirFecha: evento.fecha,
+          introducirElemento: elementos
+        });
+      }
+
+
+  });
+  }
 
 evento: ListaEventos = {
   nombre: "",
@@ -80,7 +100,7 @@ modificarEvento(){
   const listaEventosId = Number(this.route.snapshot.params['id']);
   this.evento.nombre = this.applyForm.value.introducirNombreEvento ?? "";
       const tipoEvento = this.applyForm.value.introducirTipo;
-      if(tipoEvento == "7"){
+      if(tipoEvento == "Otro"){
         this.evento.tipo = this.applyForm.value.otroTipo ?? "Otro";
       }
       else {
@@ -100,6 +120,7 @@ modificarEvento(){
      }
     });
 }
+
 
 volverIndex(){
   this.router.navigateByUrl("/index");
