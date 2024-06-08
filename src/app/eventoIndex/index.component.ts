@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ListaEventosComponent } from '../lista-eventos/lista-eventos.component';
 import { ListaEventos } from '../lista-eventos';
 import { ObservadorService } from '../servicios/observador.service';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NuevoEventoComponent } from '../nuevo-evento/nuevo-evento.component';
 import { FormsModule } from '@angular/forms';
 
@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
   template: `
   <!-- Inputs -->
     <section>
+      <button class="primary" type="button" (click)="modUsuario()">Modificar usuario</button>
       <form>
         <div>
           <a [routerLink]='[""]'>Cerrar sesión</a>
@@ -56,7 +57,7 @@ eventosFiltrados: ListaEventos[]= [];
 filtrar: string = "";
 tipos: string[] = ["Cumpleaños", "Viaje","Cena","Comida","Reunion","Cita","Otro"];
 
-constructor(private router: Router, private observadorService: ObservadorService) { }
+constructor(private router: Router, private observadorService: ObservadorService, private route: ActivatedRoute) { }
 // obtener elementos
 ngOnInit(){
   this.observadorService.obtenerEventoParticipante().subscribe({
@@ -86,6 +87,10 @@ filtrarEventos(){
   console.log("Eventos filtrados: ", this.eventosFiltrados); // Verificar eventos después del filtrado
 }
 
+modUsuario(){
+  const usuarioId = Number(this.route.snapshot.params["id"]);
+  this.router.navigateByUrl(`modificar-usuario/${usuarioId}`);
+}
 
   newEvent(){
       this.router.navigateByUrl("/nuevo-evento");

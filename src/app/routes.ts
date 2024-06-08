@@ -9,6 +9,7 @@ import { NuevoUsuarioComponent } from "./nuevo-usuario/nuevo-usuario.component";
 import { ListaEventosComponent } from './lista-eventos/lista-eventos.component';
 import { ParticipantesComponent } from './participantes/participantes.component';
 import { ModEventoComponent } from './mod-evento/mod-evento.component';
+import { ModUsuarioComponent } from './mod-usuario/mod-usuario.component';
 
 const routeConfig: Routes = [{
 path:"",
@@ -37,6 +38,12 @@ title: "Autenticacion page",
   path: "nuevo-evento",
   component: NuevoEventoComponent,
   title: "new event page",
+  canActivate: [authGuard]
+},
+{
+  path: "modificar-usuario/:d",
+  component: ModUsuarioComponent,
+  title: "new user page",
   canActivate: [authGuard]
 },
 {

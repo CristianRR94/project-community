@@ -104,10 +104,8 @@ modificarEvento(){
         this.evento.tipo = this.applyForm.value.otroTipo ?? "Otro";
       }
       else {
-
         this.evento.tipo = this.applyForm.value.introducirTipo ?? "";
       }
-
       this.evento.administrador = this.applyForm.value.admin ?? false;
       this.evento.fecha = this.applyForm.value.introducirFecha ?? new Date().toString().substring(0, 10);
       this.evento.elementos = this.applyForm.value.introducirElemento?.split(",") ?? [];
