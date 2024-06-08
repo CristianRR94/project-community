@@ -5,19 +5,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ListaEventos } from '../lista-eventos';
-import { response } from 'express';
-import { error } from 'console';
-
 
 @Component({
-  selector: 'app-nuevo-evento',
+  selector: 'app-mod-evento',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, RouterModule],
   template: `
-  <!-- Formulario -->
-  <section class="seccion">
-    <h2 class="formularioEvento">Crear Evento</h2>
-  <form method="post" [formGroup]="applyForm" (submit)="crearEvento()">
+    <section class="seccion">
+    <h2 class="formularioEvento">Modificar Evento</h2>
+  <form method="post" [formGroup]="applyForm" (submit)="modificarEvento()">
 
     <label for="nombreEvento">Nombre del evento</label>
     <input id="nombreEvento" type="text" formControlName="introducirNombreEvento">
@@ -38,57 +34,51 @@ import { error } from 'console';
 
     <label for="nombreObjeto">Elementos</label>
     <input id="nombreObjeto" type="text" formControlName="introducirElemento">
-
     <button type="submit" class="primary">Aceptar</button>
     <button type="button" class="primary" (click)="volverIndex()">Volver</button>
   </form>
 
   </section>
   `,
-  styleUrl: './nuevo-evento.component.css'
+  styleUrl: './mod-evento.component.css'
 })
+export class ModEventoComponent {
 
-export class NuevoEventoComponent implements OnInit {
+  constructor(private observadorService: ObservadorService, private router: Router, private route: ActivatedRoute) { }
 
-  constructor(private observadorService: ObservadorService, private router: Router, private route: ActivatedRoute){ }
-
-    //observadorService = inject(ObservadorService);
-
-    public tipos: string[]=[];
-    ngOnInit(): void {
-      this.tipos = [
-         "Cumpleaños",
-         "Viaje",
-         "Cena",
-         "Comida",
-         "Reunión",
-         "Cita",
-         "Otro",];
-    }
-
-
-  evento: ListaEventos = {
-    nombre: "",
-    tipo: "",
-    administrador: true,
-    fecha: new Date,
-    elementos: []
+  public tipos: string[]=[];
+  ngOnInit(): void {
+    this.tipos = [
+       "Cumpleaños",
+       "Viaje",
+       "Cena",
+       "Comida",
+       "Reunión",
+       "Cita",
+       "Otro",];
   }
-  applyForm = new FormGroup({
-
-    introducirNombreEvento: new FormControl(""),
-    introducirTipo: new FormControl(""),
-    otroTipo: new FormControl(""),
-    admin: new FormControl(),
-    introducirFecha: new FormControl(),
-    introducirElemento: new FormControl(""),
-
-  });
 
 
-  crearEvento(){
+evento: ListaEventos = {
+  nombre: "",
+  tipo: "",
+  administrador: true,
+  fecha: new Date,
+  elementos: []
+}
+applyForm = new FormGroup({
 
-      this.evento.nombre = this.applyForm.value.introducirNombreEvento ?? "";
+  introducirNombreEvento: new FormControl(""),
+  introducirTipo: new FormControl(""),
+  otroTipo: new FormControl(""),
+  admin: new FormControl(),
+  introducirFecha: new FormControl(),
+  introducirElemento: new FormControl(""),
+
+});
+modificarEvento(){
+  const listaEventosId = Number(this.route.snapshot.params['id']);
+  this.evento.nombre = this.applyForm.value.introducirNombreEvento ?? "";
       const tipoEvento = this.applyForm.value.introducirTipo;
       if(tipoEvento == "7"){
         this.evento.tipo = this.applyForm.value.otroTipo ?? "Otro";
@@ -101,19 +91,18 @@ export class NuevoEventoComponent implements OnInit {
       this.evento.administrador = this.applyForm.value.admin ?? false;
       this.evento.fecha = this.applyForm.value.introducirFecha ?? new Date().toString().substring(0, 10);
       this.evento.elementos = this.applyForm.value.introducirElemento?.split(",") ?? [];
-      this.observadorService.crearEvento(this.evento).subscribe({
+      this.observadorService.modificarEvento(this.evento, listaEventosId).subscribe({
         next: (response: ListaEventos[]) =>{
-        console.log("Evento creado", response);
+        console.log("Evento modificado", response);
         this.router.navigateByUrl("/index");
       },
       error: (error: any) => {console.log("error", error)
      }
     });
-  }
+}
 
-  volverIndex(){
-    setTimeout(()=>{
-      this.router.navigateByUrl("/index");
-    }, 100);
-  }
+volverIndex(){
+  this.router.navigateByUrl("/index");
+}
+
 }

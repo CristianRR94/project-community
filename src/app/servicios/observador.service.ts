@@ -75,11 +75,16 @@ export class ObservadorService {
       map(response => {return response.mensaje;}));
 
   }
-
+  //solo eventos con usuario
   obtenerEventoParticipante(): Observable<ListaEventos[]>{
     return this.http.get<any>(`${this.apiUrl}/participante/eventos`, { headers: this.getAuthHeaders()}).pipe(map(
       response => {return response.mensaje}
     ));
   }
+
+  modificarEvento(evento: ListaEventos, eventoId: number): Observable<any>{
+
+    return this.http.put(`${this.apiUrl}/evento/editar/${eventoId}`, evento, { headers: this.getAuthHeaders() });
+    }
 }
 

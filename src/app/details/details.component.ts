@@ -32,9 +32,10 @@ import { Participantes } from '../participantes';
     </section>
     <section class="listado-asistencia">
       <h3>Administradores: {{listaEventos?.administrador ? "Todos" : "Creador"}}</h3>
-
+      <div>
         <button type="button" class="primary" (click)="addParticipantes()">Añadir Participantes</button>
-
+        <button type="button" class="primary" (click)="goToModEvento()">Modificar Evento</button>
+      </div>
     </section>
    </article>
   `,
@@ -59,12 +60,14 @@ export class DetailsComponent implements OnInit{
   //añadir participante
   addParticipantes(): void{
     const listaEventosId = Number(this.route.snapshot.params["id"]);
-
-
     this.router.navigateByUrl(`crear-participantes/${listaEventosId}`);
-
-
   }
+
+  goToModEvento(){
+    const listaEventosId = Number(this.route.snapshot.params["id"]);
+    this.router.navigateByUrl(`modificar-evento/${listaEventosId}`)
+  }
+
   //obtener los participantes por cada evento
   ngOnInit(): void{
     const listaEventosId = Number(this.route.snapshot.paramMap.get('id'));
