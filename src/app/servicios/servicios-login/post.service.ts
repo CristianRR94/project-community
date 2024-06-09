@@ -12,7 +12,7 @@ export class PostService {
 
 
 
-  private apiURL = "http://localhost:8000/api/usuarios";
+  private apiURL = "http://localhost:8000/api";
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   private getAuthHeaders(): HttpHeaders {
@@ -23,13 +23,21 @@ export class PostService {
     }
     return headers;
   }
+
   guardarUsuario(usuario: CrearUsuario): Observable<any> {
     return this.http.post(this.apiURL, usuario);
   }
 
   modificarUsuario(usuario: CrearUsuario): Observable<any> {
     const usuarioId = Number(this.route.snapshot.params['id'])
-    return this.http.put(`${this.apiURL}/editar/${usuarioId}`, usuario);//{ headers: this.getAuthHeaders()};
+    return this.http.put(`${this.apiURL}/usuarios/editar/${usuarioId}`, usuario,{ headers: this.getAuthHeaders()});
   }
 
+  logout(): Observable<any>{
+    const usuarioId = Number(this.route.snapshot.params['id']);
+    return this.http.post(`${this.apiURL}/logout/${usuarioId}`, { headers: this.getAuthHeaders()});
+  }
+  borrarToken(){
+    localStorage.removeItem("token");
+  }
 }

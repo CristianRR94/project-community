@@ -1,3 +1,4 @@
+import { PostService } from './../servicios/servicios-login/post.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -21,7 +22,7 @@ import { FormsModule } from '@angular/forms';
       <button class="primary" type="button" (click)="modUsuario()">Modificar usuario</button>
       <form>
         <div>
-          <a [routerLink]='[""]'>Cerrar sesión</a>
+          <button type="button" class="primary" (click)="logout()">Cerrar Sesión</button>
         </div>
       </form>
     </section>
@@ -57,7 +58,7 @@ eventosFiltrados: ListaEventos[]= [];
 filtrar: string = "";
 tipos: string[] = ["Cumpleaños", "Viaje","Cena","Comida","Reunion","Cita","Otro"];
 
-constructor(private router: Router, private observadorService: ObservadorService, private route: ActivatedRoute) { }
+constructor(private router: Router, private observadorService: ObservadorService, private route: ActivatedRoute, private postService: PostService) { }
 // obtener elementos
 ngOnInit(){
   this.observadorService.obtenerEventoParticipante().subscribe({
@@ -94,5 +95,13 @@ modUsuario(){
 
   newEvent(){
       this.router.navigateByUrl("/nuevo-evento");
+  }
+
+  logout(){
+    this.postService.logout().subscribe({next: () => this.router.navigateByUrl("/"),
+      error: (err) => console.error("Error al cerrar sesion", err),
+      complete: ()=> this.postService.borrarToken()
+    })
+
   }
 }

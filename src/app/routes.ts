@@ -1,4 +1,4 @@
-import { CrearUsuario } from './../../crear-usuario';
+import { CrearUsuario } from '../../crear-usuario';
 import { authGuard } from './auth.guard';
 import { Routes } from "@angular/router";
 import { IndexComponent } from "./eventoIndex/index.component";

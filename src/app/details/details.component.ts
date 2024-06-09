@@ -71,20 +71,27 @@ export class DetailsComponent implements OnInit{
   }
 
   confirmEliminarEvento(){
+    const eventoId = Number(this.route.snapshot.params["id"]);
     const confirmar = confirm("¿Seguro que quieres eliminar este evento?");
     if (confirmar){
-      this.eliminarEvento();
+      this.eliminarEvento(eventoId);
     }
 
   }
-  eliminarEvento(){
-    const listaEventosId = Number(this.route.snapshot.params["id"]);
-    this.observadorService.eliminarEvento(listaEventosId).subscribe({
-      next: () => {console.log();
+  eliminarEvento(eventoId: number){
+
+    this.observadorService.deleteEvento(eventoId).subscribe({
+      next: () => {
       this.router.navigateByUrl('/index');
     },
     error: (err) => {
-      console.error("Error al eliminar evento", err);
+      if (err.status === 403) {
+        console.error('No tienes permiso para eliminar este evento');
+      }
+      else{
+        console.error("Error al eliminar evento", err);
+      }
+
     }});
   }
 

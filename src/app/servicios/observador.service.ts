@@ -85,7 +85,7 @@ export class ObservadorService {
 
     return this.http.put(`${this.apiUrl}/evento/editar/${eventoId}`, evento, { headers: this.getAuthHeaders() });
     }
-  eliminarEvento(eventoId: number){
+  deleteEvento(eventoId: number){
     return this.http.delete(`${this.apiUrl}/evento/eliminar/${eventoId}`, { headers: this.getAuthHeaders() });
   }
 
