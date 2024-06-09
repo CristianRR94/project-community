@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/proyect-community",
+            "outputPath": "dist/project-community",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "proyect-community:build:production"
+              "buildTarget": "project-community:build:production"
             },
             "development": {
-              "buildTarget": "proyect-community:build:development"
+              "buildTarget": "project-community:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "proyect-community:build"
+            "buildTarget": "project-community:build"
           }
         },
         "test": {
