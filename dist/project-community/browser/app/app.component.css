@@ -1,0 +1,81 @@
+/* Establecer variables */
+:root {
+	--content-padding: 10px;
+	--primary-color: #3498db; /* Azul */
+	--secondary-color: #f1c40f; /* Amarillo */
+	--shadow-color: rgba(0, 0, 0, 0.3);
+  }
+
+  /* Animación para transiciones */
+  @keyframes fadeIn {
+	from {
+	  opacity: 0;
+	}
+	to {
+	  opacity: 1;
+	}
+  }
+
+  /* Estilos generales */
+  body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+	background-color: #f5f5f5; /* Color de fondo */
+  }
+
+  /* Encabezado */
+  header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 90px;
+	padding: var(--content-padding);
+	background-color: var(--primary-color);
+	box-shadow: 0px 5px 25px var(--shadow-color);
+	transition: background-color 0.3s ease;
+  }
+
+  /* Contenido */
+  .contenido {
+	padding: var(--content-padding);
+  }
+
+  /* Logo */
+  .logo-proyecto {
+	height: 60px; /* Reducir el tamaño del logo */
+	width: auto;
+	margin-right: 20px;
+	filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3)); /* Sombra en el logo */
+  }
+
+  /* Estilos de la transición para hover */
+  header:hover {
+	background-color: var(--secondary-color);
+  }
+
+  /* Animación de entrada para el contenido */
+  .contenido {
+	animation: fadeIn 0.5s ease;
+  }
+
+  /* Borde amarillo */
+  .container {
+	border: 2px solid var(--secondary-color);
+	padding: 10px;
+  }
+
+  /* Efecto de sombra */
+  .container {
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Texto con efecto de color */
+  h1 {
+	color: var(--primary-color);
+	transition: color 0.3s ease;
+  }
+
+  h1:hover {
+	color: var(--secondary-color);
+  }

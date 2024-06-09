@@ -1,0 +1,66 @@
+/* Estilo General */
+body {
+  background-color: #FFFF00; /* Fondo amarillo */
+  font-family: Arial, sans-serif; /* Fuente */
+  margin: 0;
+  padding: 0;
+}
+
+/* Imágenes del Listado */
+.listado-imagen {
+  height: 400px;
+  width: 50%;
+  object-fit: cover;
+  border-radius: 30px;
+  float: left;
+  margin-right: 20px;
+  transition: transform 0.3s ease; /* Animación de transformación */
+}
+
+/* Efecto al hacer hover sobre las imágenes */
+.listado-imagen:hover {
+  transform: scale(1.1); /* Aumenta el tamaño al hacer hover */
+}
+
+/* Encabezados del Listado */
+.listado-encabezado {
+  font-size: 48pt;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #297CD3; /* Azul */
+  animation: fadeInUp 0.5s ease; /* Animación de entrada */
+}
+
+/* Texto de Eventos, Arrays y Asistencia del Listado */
+.listado-evento,
+.listado-arrays,
+.listado-asistencia {
+  font-size: 24pt;
+  margin-bottom: 15px;
+  color: #297CD3; /* Azul */
+  animation: fadeIn 0.5s ease; /* Animación de entrada */
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* Animación de entrada con desplazamiento hacia arriba */
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
