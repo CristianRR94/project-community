@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "proyect-community": {
+    "project-community": {
       "projectType": "application",
       "schematics": {},
       "root": "",
