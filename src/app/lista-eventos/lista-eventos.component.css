@@ -6,7 +6,7 @@
   --animation-duration: 0.5s; /* Duración de la animación */
 }
 
-body {
+ng-deep body {
   font-family: Arial, sans-serif; /* Fuente más profesional */
   background-color: var(--background-color); /* Fondo amarillo */
   margin: 0;
@@ -17,7 +17,7 @@ body {
   min-height: 100vh; /* Altura mínima de la ventana */
 }
 
-.listado {
+ng-deep .listado {
   background: var(--box-background-color); /* Color de fondo rojo */
   border: 4px solid var(--border-color); /* Borde amarillo */
   border-radius: 30px; /* Bordes redondeados */

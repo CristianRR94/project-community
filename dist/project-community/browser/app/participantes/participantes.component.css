@@ -79,7 +79,7 @@ button {
   margin: 10px;
   border: none;
   background-color: var(--primary-color); /* Color de fondo */
-  color: white; /* Color del texto */
+  color: rgb(15, 5, 5); /* Color del texto */
   border-radius: 5px; /* Bordes redondeados */
   cursor: pointer;
   transition: background-color var(--animation-duration) ease-in-out; /* Transición de color */
