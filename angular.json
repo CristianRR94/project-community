@@ -21,9 +21,14 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+  "src/favicon.ico",
+  "src/assets",
+  {
+    "glob": "**/*",
+    "input": "src/app",
+    "output": "/app/"
+  }
+],
             "styles": [
               "node_modules/minireset.css/minireset.css",
               "src/styles.css"
