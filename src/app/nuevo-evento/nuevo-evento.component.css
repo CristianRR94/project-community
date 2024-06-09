@@ -1,24 +1,101 @@
-.formularioEvento .seccion{
-  font-size: 18pt;
-  margin-bottom: 15px;
-}
+:root {
+	--primary-color: #FF5733; /* Tono de naranja */
+	--secondary-color: #297CD3; /* Tono de azul */
+	--background-color: #FFFF00; /* Fondo amarillo */
+	--border-color: #FF5733; /* Color de borde */
+	--input-focus-color: #4CAF50; /* Color al enfocar el input */
+	--animation-duration: 0.5s; /* Duración de la animación */
+  }
 
-input {
-  font-size: 16pt;
-  margin-bottom: 15px;
-  padding: 10px;
-  width: 400px;
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  border-bottom: solid .3px;
-}
-label {
-  color: var(--secondary-color);
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 12pt;
-}
-label, input {
-  display: block;
-}
+  body {
+	font-family: Arial, sans-serif; /* Fuente más profesional */
+	background-color: var(--background-color); /* Fondo amarillo */
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh; /* Altura mínima de la ventana */
+	animation: backgroundFade var(--animation-duration) ease-in-out; /* Animación de fondo */
+  }
+
+  /* Contenedor del formulario */
+  .formularioEvento {
+	background-color: white; /* Fondo blanco */
+	border: 2px solid var(--border-color); /* Borde de color primario */
+	border-radius: 15px; /* Bordes redondeados */
+	padding: 20px; /* Espaciado interno */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+	max-width: 600px; /* Ancho máximo */
+	width: 100%; /* Ancho completo */
+	animation: fadeIn var(--animation-duration) ease-in-out; /* Animación de entrada */
+  }
+
+  /* Secciones del formulario */
+  .formularioEvento .seccion {
+	font-size: 18pt;
+	margin-bottom: 15px;
+	color: var(--primary-color); /* Color primario */
+	transition: transform var(--animation-duration) ease-in-out; /* Transición suave */
+  }
+
+  .formularioEvento .seccion:hover {
+	transform: translateY(-5px); /* Efecto de elevación al pasar el ratón */
+  }
+
+  input, select {
+	font-size: 16pt;
+	margin-bottom: 15px;
+	padding: 10px;
+	width: 100%; /* Ancho completo */
+	border: none;
+	border-bottom: solid 2px var(--border-color);
+	background: transparent;
+	transition: border-color var(--animation-duration) ease-in-out; /* Transición de color del borde */
+  }
+
+  input:focus, select:focus {
+	border-color: var(--input-focus-color); /* Cambio de color al enfocar */
+	outline: none; /* Sin contorno */
+  }
+
+  label {
+	color: var(--secondary-color); /* Color secundario */
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 12pt;
+	margin-bottom: 5px;
+	display: block; /* Bloque para alinear */
+  }
+
+  #labelCaja {
+	float: left;
+	margin-right: 20px; /* Ajuste de margen */
+  }
+
+  #checkbox {
+	width: 30px;
+	height: 30px;
+  }
+
+  /* Animación de fondo */
+  @keyframes backgroundFade {
+	from {
+	  background-color: #FFEB3B; /* Color inicial */
+	}
+	to {
+	  background-color: var(--background-color); /* Color final */
+	}
+  }
+
+  /* Animación de entrada */
+  @keyframes fadeIn {
+	from {
+	  opacity: 0;
+	  transform: translateY(-20px);
+	}
+	to {
+	  opacity: 1;
+	  transform: translateY(0);
+	}
+  }

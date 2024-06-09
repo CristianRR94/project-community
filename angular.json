@@ -25,13 +25,18 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/minireset.css/minireset.css",
               "src/styles.css"
+
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
+            "scripts": [
+              "./node_modules/hammerjs/hammer.min.js"
+            ],
+
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules"
+              ]
             }
           },
           "configurations": {
@@ -90,8 +95,16 @@
             ],
             "styles": [
               "src/styles.css"
+
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/hammerjs/hammer.min.js"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules"
+              ]
+            }
           }
         }
       }

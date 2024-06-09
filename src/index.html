@@ -1,16 +1,41 @@
 <!doctype html>
 <html lang="en">
 <head>
-
   <meta charset="utf-8">
   <title>ProyectCommunity</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
+
+<body class="ig-typography ig-scrollbar">
+  <header class="header">
+    <div class="container logo-nav-container">
+      <!-- Aquí está la única instancia de la imagen del logo -->
+      <nav class="navigation">
+        <ul>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/">Eventos</a></li>
+          <li><a href="/">Cerrar sesión</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
   <app-root></app-root>
+
+  <footer class="footer">
+    <div class="container footer-nav-container">
+      <img src="assets/iconosApp/logoCommunity.png" width="50">
+      <nav class="navigation">
+        <ul>
+          <li><a href="#">Política de Privacidad</a></li>
+          <li><a href="#">Quienes somos</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
 </body>
 </html>

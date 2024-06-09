@@ -23,7 +23,11 @@ export function app(): express.Express {
   server.get('*.*', express.static(browserDistFolder, {
     maxAge: '1y'
   }));
-
+  //Proxy
+  server.use("/api", (req, res, next)=>{
+    console.log("API Request: ", req.originalUrl, req.headers);
+    next();
+  })
   // All regular routes use the Angular engine
   server.get('*', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;

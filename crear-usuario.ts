@@ -1,5 +1,5 @@
 export interface CrearUsuario {
-  nombre: string,
+  name: string,
   email: string,
-  contrasena: string,
+  password: string,
 }
