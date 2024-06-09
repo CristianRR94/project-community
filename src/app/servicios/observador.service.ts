@@ -89,11 +89,10 @@ export class ObservadorService {
     return this.http.delete(`${this.apiUrl}/evento/eliminar/${eventoId}`, { headers: this.getAuthHeaders() });
   }
 
-  //habra que hacerlo en api
-  primerParticipante(){
+  //ver si usuario es admin
+  primerParticipante(eventoId: number){
+    return this.http.get(`${this.apiUrl}/evento/administrador/${eventoId}`, { headers: this.getAuthHeaders()});
 
-      const token = localStorage.getItem("token");
-      return token;
   }
 }
 

@@ -1,3 +1,4 @@
+import { UsuarioService } from './../servicios/servicios-login/usuario.service';
 import { ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { FechaService } from '../servicios/fecha.service';
 import { ObservadorService } from '../servicios/observador.service';
@@ -7,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import { Participantes } from '../participantes';
+import { response } from 'express';
+
 /* Fichero donde se ven los detalles del evento */
 @Component({
   selector: 'app-details',
@@ -31,8 +34,8 @@ import { Participantes } from '../participantes';
       </table>
     </section>
     <section class="listado-asistencia">
-      <h3>Administradores: {{listaEventos?.administrador ? "Todos" : "Creador"}}</h3>
-      <div *ngIf="listaEventos?.administrador == true && listaParticipantes?.[0]">
+      <h3>Administradores: {{listaEventos?.administrador ? "Creador" : "Todos"}}</h3>
+      <div *ngIf="this.getEsAdmin()  == true || listaEventos?.administrador == false && this.getEsAdmin() == false">
         <button type="button" class="primary" (click)="addParticipantes()">Añadir Participantes</button>
         <button type="button" class="primary" (click)="goToModEvento()">Modificar Evento</button>
       </div>
@@ -47,11 +50,11 @@ import { Participantes } from '../participantes';
 })
 export class DetailsComponent implements OnInit{
 
-  listaEventos: ListaEventos | undefined;
+  listaEventos?: ListaEventos;
   listaParticipantes?: Participantes [];
+  esAdmin: boolean = false;
 
-
-  constructor(private router: Router, private route: ActivatedRoute, private observadorService: ObservadorService){
+  constructor(private router: Router, private route: ActivatedRoute, private observadorService: ObservadorService, private usuarioService: UsuarioService){
     //establecer los parámetros de la ruta (lo que cambia -> la id)
     const listaEventosId = Number(this.route.snapshot.params["id"])
     //mostrar elementos
@@ -60,7 +63,7 @@ export class DetailsComponent implements OnInit{
     });
   }
   //añadir participante
-  addParticipantes(): void{
+  addParticipantes(){
     const listaEventosId = Number(this.route.snapshot.params["id"]);
     this.router.navigateByUrl(`crear-participantes/${listaEventosId}`);
   }
@@ -106,9 +109,25 @@ export class DetailsComponent implements OnInit{
     this.observadorService.obtenerParticipantes(listaEventosId).subscribe(participantes=> {
       this.listaParticipantes = participantes;
       console.log(this.listaEventos?.tipo)
+
+
+    const eventoId = Number(this.route.snapshot.paramMap.get('id'));
+    this.observadorService.primerParticipante(eventoId).subscribe({
+      next: (response: any) => {
+        this.esAdmin = response && response.mensaje === true; // Asignación directa a esAdmin
+        console.log(response.mensaje === true ? "true" : "false", this.esAdmin);
+      },
+      error: (err) => {
+        console.error("Error al obtener administrador", err);
+      }
     });
-
+    console.log("sale",this.listaEventos?.administrador);
+  });
   }
+  getEsAdmin(): boolean{
 
+  console.log("Es admin", this.esAdmin)
+  return this.esAdmin;
+}
 
 }

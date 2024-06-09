@@ -1,18 +1,20 @@
+import { Observable } from 'rxjs';
 
 import { PostService } from './post.service';
 import { CrearUsuario } from '../../../../crear-usuario';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
    //inyección de dependencias
   postService = inject(PostService);
-
+  private apiURL = "http://localhost:8000/api";
    //uso del tipo crear-usuario.ts
   submitUsuario(usuario: CrearUsuario ){
        //validación
@@ -88,5 +90,9 @@ export class UsuarioService {
     }
   }
 
+  obtenerUsuario(id: number): Observable<any>{
+   return this.http.get<any>(`${this.apiURL}/usuarios/${id}`)
+
+  }
 
 }

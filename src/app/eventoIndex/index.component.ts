@@ -27,6 +27,11 @@ import { FormsModule } from '@angular/forms';
       </form>
     </section>
     <section>
+
+        <button class="primary" type="button" id="crearNuevo" (click)="newEvent()">Crear nuevo evento</button>
+
+    </section>
+    <section>
       <form>
         <label for ="buscar">Filtrar Eventos</label>
         <select class="primary" [(ngModel)]= "filtrar" name="todos" id="buscar" (change)="filtrarEventos()">
@@ -42,11 +47,7 @@ import { FormsModule } from '@angular/forms';
 
       <app-lista-eventos [listaEventos]="eventosFiltrados"></app-lista-eventos>
     </section>
-    <section>
 
-        <button class="primary" type="button" id="crearNuevo" (click)="newEvent()">Crear nuevo evento</button>
-
-    </section>
 
   `,
   styleUrls: ['./index.component.css']
