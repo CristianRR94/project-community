@@ -32,9 +32,12 @@ import { Participantes } from '../participantes';
     </section>
     <section class="listado-asistencia">
       <h3>Administradores: {{listaEventos?.administrador ? "Todos" : "Creador"}}</h3>
-      <div>
+      <div *ngIf="listaEventos?.administrador == true && listaParticipantes?.[0]">
         <button type="button" class="primary" (click)="addParticipantes()">Añadir Participantes</button>
         <button type="button" class="primary" (click)="goToModEvento()">Modificar Evento</button>
+      </div>
+      <div *ngIf="listaParticipantes?.[0]">
+      <button  type="button" class="primary" (click)="confirmEliminarEvento()">Eliminar Evento</button>
       </div>
     </section>
    </article>
@@ -45,16 +48,15 @@ import { Participantes } from '../participantes';
 export class DetailsComponent implements OnInit{
 
   listaEventos: ListaEventos | undefined;
-  listaParticipantes: Participantes []| undefined;
+  listaParticipantes?: Participantes [];
+
 
   constructor(private router: Router, private route: ActivatedRoute, private observadorService: ObservadorService){
     //establecer los parámetros de la ruta (lo que cambia -> la id)
     const listaEventosId = Number(this.route.snapshot.params["id"])
     //mostrar elementos
     this.observadorService.getListaEventosById(listaEventosId).subscribe(eventos => {
-      console.log("Eventos recibidos:", eventos);
       this.listaEventos = eventos;
-      console.log("Lista", this.listaEventos);
     });
   }
   //añadir participante
@@ -67,6 +69,29 @@ export class DetailsComponent implements OnInit{
     const listaEventosId = Number(this.route.snapshot.params["id"]);
     this.router.navigateByUrl(`modificar-evento/${listaEventosId}`)
   }
+
+  confirmEliminarEvento(){
+    const confirmar = confirm("¿Seguro que quieres eliminar este evento?");
+    if (confirmar){
+      this.eliminarEvento();
+    }
+
+  }
+  eliminarEvento(){
+    const listaEventosId = Number(this.route.snapshot.params["id"]);
+    this.observadorService.eliminarEvento(listaEventosId).subscribe({
+      next: () => {console.log();
+      this.router.navigateByUrl('/index');
+    },
+    error: (err) => {
+      console.error("Error al eliminar evento", err);
+    }});
+  }
+
+ /*   primerParticipante(): boolean{
+    const token = this.observadorService.primerParticipante() ;
+    return this.listaParticipantes?[0] ==
+  } */
 
   //obtener los participantes por cada evento
   ngOnInit(): void{

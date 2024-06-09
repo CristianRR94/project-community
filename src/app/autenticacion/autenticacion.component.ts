@@ -11,6 +11,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
   selector: 'app-autenticacion',
   standalone: true,
   imports: [IndexComponent, NuevoUsuarioComponent, ReactiveFormsModule],
+
   template: `
    <section>
       <form method="post" [formGroup] = "inicio" (submit)= "autenticarUsuario()">
@@ -27,7 +28,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
       </form>
     </section>
   `,
-  styleUrl: './autenticacion.component.css'
+  styleUrls: ['./autenticacion.component.css']
 })
 export class AutenticacionComponent {
 

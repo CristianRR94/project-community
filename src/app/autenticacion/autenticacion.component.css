@@ -1,5 +1,5 @@
 /* Estilo para el body */
-body {
+::ng-deep body {
 	background-color: #FFEB3B; /* Fondo amarillo */
 	margin: 0;
 	font-family: Arial, sans-serif;
@@ -10,7 +10,7 @@ body {
   }
 
   /* Contenedor de texto centralizado */
-  .ctexto {
+  ::ng-deep element {
 	width: 70%;
 	margin: 0 auto 20px;
 	display: block;
@@ -24,7 +24,7 @@ body {
   }
 
   /* Contenedor para los inputs */
-  .input-container {
+  ::ng-deep .input-container {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -32,7 +32,7 @@ body {
   }
 
   /* Input de usuario */
-  .usu {
+  ::ng-deep .usu {
 	width: 80%;
 	height: 35px;
 	display: block;
@@ -45,7 +45,7 @@ body {
   }
 
   /* Input de contraseña */
-  .con {
+ ::ng-deep  .con {
 	width: 80%;
 	height: 35px;
 	display: block;
@@ -58,7 +58,7 @@ body {
   }
 
   /* Contenedor principal */
-  .cuerpo {
+  ::ng-deep .cuerpo {
 	width: 700px;
 	max-width: 90%; /* Asegura que sea responsivo */
 	padding: 20px;
@@ -72,7 +72,7 @@ body {
   }
 
   /* Contenedor de botones */
-  .buttons {
+  ::ng-deep .buttons {
 	width: 80%;
 	display: flex;
 	align-items: center;
@@ -81,7 +81,7 @@ body {
   }
 
   /* Estilo para botones (ejemplo de clase común para botones) */
-  .button {
+  ::ng-deep button {
 	padding: 10px 20px;
 	border: none;
 	border-radius: 5px;
@@ -93,7 +93,7 @@ body {
 	margin-left: 10px; /* Espaciado entre los botones */
   }
 
-  .button:hover {
+  ::ng-deep button:hover {
 	background-color: #0056b3; /* Color azul oscuro al pasar el ratón */
   }
 

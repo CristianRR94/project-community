@@ -90,7 +90,7 @@ export class NuevoEventoComponent implements OnInit {
 
       this.evento.nombre = this.applyForm.value.introducirNombreEvento ?? "";
       const tipoEvento = this.applyForm.value.introducirTipo;
-      if(tipoEvento == "7"){
+      if(tipoEvento == "Otro"){
         this.evento.tipo = this.applyForm.value.otroTipo ?? "Otro";
       }
       else {

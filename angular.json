@@ -32,11 +32,7 @@
             "scripts": [
               "./node_modules/hammerjs/hammer.min.js"
             ],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            },
+
             "stylePreprocessorOptions": {
               "includePaths": [
                 "node_modules"

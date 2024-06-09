@@ -27,13 +27,12 @@ export class ObservadorService {
     }
     return headers;
   }
-
+  //obtiene el lemento por id
   getListaEventosById(id: number): Observable<ListaEventos>{
     //no hace falta mapear
     return this.http.get<any>(`${this.apiUrl}/evento/${id}`, { headers: this.getAuthHeaders() });
-
-
   }
+
     //mostrar los eventos en "detalles"
   obtenerEventos(): Observable<ListaEventos[]>{
     // mapear los eventos para que solo devuelvan el mensaje de la api
@@ -86,5 +85,15 @@ export class ObservadorService {
 
     return this.http.put(`${this.apiUrl}/evento/editar/${eventoId}`, evento, { headers: this.getAuthHeaders() });
     }
+  eliminarEvento(eventoId: number){
+    return this.http.delete(`${this.apiUrl}/evento/eliminar/${eventoId}`, { headers: this.getAuthHeaders() });
+  }
+
+  //habra que hacerlo en api
+  primerParticipante(){
+
+      const token = localStorage.getItem("token");
+      return token;
+  }
 }
 

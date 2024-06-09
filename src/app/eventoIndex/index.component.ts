@@ -73,7 +73,7 @@ ngOnInit(){
     }
   });
 }
-  //no funciona(id-string)
+  //filtrar por tipo de evento
 filtrarEventos(){
   console.log("Filtrar: ", this.filtrar); // Verificar el valor de filtro
   if (this.filtrar === "todos") {
