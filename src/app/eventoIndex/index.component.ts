@@ -19,7 +19,7 @@ import { FormsModule } from '@angular/forms';
   template: `
   <!-- Inputs -->
     <section>
-      <button class="primary" type="button" (click)="modUsuario()">Modificar usuario</button>
+      <button title="Modificar los datos de usuario " class="primary" type="button" (click)="modUsuario()">Modificar usuario</button>
       <form>
         <div>
           <button type="button" class="primary" (click)="logout()">Cerrar Sesión</button>
@@ -34,7 +34,7 @@ import { FormsModule } from '@angular/forms';
     <section>
       <form>
         <label for ="buscar">Filtrar Eventos</label>
-        <select class="primary" [(ngModel)]= "filtrar" name="todos" id="buscar" (change)="filtrarEventos()">
+        <select title="Muestra una clase de evento concreto" class="primary" [(ngModel)]= "filtrar" name="todos" id="buscar" (change)="filtrarEventos()">
 
             <option value="todos">Todos</option>
             <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
@@ -82,11 +82,11 @@ filtrarEventos(){
     this.eventosFiltrados = this.listaEventosListado;
   } else {
     this.eventosFiltrados = this.listaEventosListado.filter(evento => {
-      console.log("Evento durante filtrado: ", evento); // Verificar la estructura de cada evento
+      //console.log("Evento durante filtrado: ", evento); // Verificar la estructura de cada evento
       return evento.tipo.toLowerCase() === this.filtrar.toLowerCase();
     });
   }
-  console.log("Eventos filtrados: ", this.eventosFiltrados); // Verificar eventos después del filtrado
+  //console.log("Eventos filtrados: ", this.eventosFiltrados); // Verificar eventos después del filtrado
 }
 
 modUsuario(){

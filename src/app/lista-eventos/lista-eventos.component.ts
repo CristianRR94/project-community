@@ -27,7 +27,7 @@ import { Input } from '@angular/core';
     </section>
 
     <ng-template #mensaje>
-      <h1>No hay eventos</h1>
+      <h1 class="textoAviso">No hay eventos</h1>
     </ng-template>
   `,
   styleUrls: ['./lista-eventos.component.css'],
@@ -60,7 +60,7 @@ export class ListaEventosComponent implements OnInit{
     this.observadorService.obtenerEventoParticipante().subscribe({
       next: (data: ListaEventos[]) => {
         this.listaEventos = data;
-        console.log("imagen", this.tipoImagen)
+        //console.log("imagen", this.tipoImagen)
       },
       error: (error) => {
         console.error(error);

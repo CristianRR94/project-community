@@ -33,7 +33,7 @@ export class UsuarioService {
           console.error(error);
         },
         complete: () => {
-          console.log("¡Usuario registrado con éxito!");
+          alert("¡Usuario registrado con éxito!");
           this.router.navigateByUrl("");
         }
       });
@@ -77,13 +77,14 @@ export class UsuarioService {
 
         next: (response: any) => {
         console.log(response);
+        alert("Usuario modificado con éxito");
         },
         //error por consola
         error: (error: any) => {
         console.error(error);
         },
         complete: () => {
-        console.log("¡Usuario registrado con éxito!");
+        alert("¡Usuario registrado con éxito!");
         this.router.navigateByUrl("");
         }
       });

@@ -15,10 +15,10 @@ import { ListaEventos } from '../lista-eventos';
     <h2 class="formularioEvento">Modificar Evento</h2>
   <form method="post" [formGroup]="applyForm" (submit)="modificarEvento()">
 
-    <label for="nombreEvento">Nombre del evento</label>
+    <label for="nombreEvento">*Nombre del evento</label>
     <input id="nombreEvento" type="text" formControlName="introducirNombreEvento">
 
-    <label for="nombre">Tipo de evento</label>
+    <label for="nombre">*Tipo de evento</label>
     <select class="seccion" id="tipoEvento"  formControlName="introducirTipo">
       <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
     </select>
@@ -29,11 +29,11 @@ import { ListaEventos } from '../lista-eventos';
       <label for= "asistencia" id="labelCaja">Solo creador como administrador</label>
       <input id="checkbox" type="checkbox" value="1" formControlName="admin">
     </div>
-    <label for="fecha">Fecha</label>
+    <label for="fecha">*Fecha</label>
     <input id="fecha" type="date" formControlName="introducirFecha">
 
     <label for="nombreObjeto">Elementos</label>
-    <input id="nombreObjeto" type="text" formControlName="introducirElemento">
+    <input title="Separa con coma (',') para hacer una lista de objetos necesarios" id="nombreObjeto" type="text" formControlName="introducirElemento">
     <button type="submit" class="primary">Aceptar</button>
     <button type="button" class="primary" (click)="volverIndex()">Volver</button>
   </form>
@@ -112,6 +112,7 @@ modificarEvento(){
       this.observadorService.modificarEvento(this.evento, listaEventosId).subscribe({
         next: (response: ListaEventos[]) =>{
         console.log("Evento modificado", response);
+        alert("¡Evento modificado con éxito!");
         this.router.navigateByUrl("/index");
       },
       error: (error: any) => {console.log("error", error)

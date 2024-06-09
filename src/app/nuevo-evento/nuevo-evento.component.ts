@@ -19,10 +19,10 @@ import { error } from 'console';
     <h2 class="formularioEvento">Crear Evento</h2>
   <form method="post" [formGroup]="applyForm" (submit)="crearEvento()">
 
-    <label for="nombreEvento">Nombre del evento</label>
+    <label for="nombreEvento">*Nombre del evento</label>
     <input id="nombreEvento" type="text" formControlName="introducirNombreEvento">
 
-    <label for="nombre">Tipo de evento</label>
+    <label for="nombre">*Tipo de evento</label>
     <select class="seccion" id="tipoEvento"  formControlName="introducirTipo">
       <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
     </select>
@@ -33,11 +33,11 @@ import { error } from 'console';
       <label for= "asistencia" id="labelCaja">Solo creador como administrador</label>
       <input id="checkbox" type="checkbox" value="1" formControlName="admin">
     </div>
-    <label for="fecha">Fecha</label>
+    <label for="fecha">*Fecha</label>
     <input id="fecha" type="date" formControlName="introducirFecha">
 
     <label for="nombreObjeto">Elementos</label>
-    <input id="nombreObjeto" type="text" formControlName="introducirElemento">
+    <input title="Separa con coma (',') para hacer una lista de objetos necesarios" id="nombreObjeto" type="text" formControlName="introducirElemento">
 
     <button type="submit" class="primary">Aceptar</button>
     <button type="button" class="primary" (click)="volverIndex()">Volver</button>
@@ -104,9 +104,11 @@ export class NuevoEventoComponent implements OnInit {
       this.observadorService.crearEvento(this.evento).subscribe({
         next: (response: ListaEventos[]) =>{
         console.log("Evento creado", response);
+        alert("¡Evento creado con éxito!")
         this.router.navigateByUrl("/index");
       },
-      error: (error: any) => {console.log("error", error)
+      error: (error: any) => {console.log("error", error);
+        alert("Ha habido un error");
      }
     });
   }

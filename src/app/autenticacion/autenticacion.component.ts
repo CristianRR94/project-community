@@ -46,12 +46,12 @@ export class AutenticacionComponent {
     const password = this.inicio.get("readPassword")?.value;
 
     if (!name) {
-      console.error("Introduce nombre");
+      alert("Introduce nombre");
       return;
     };
 
     if (!password) {
-      console.error("Introduce Contraseña");
+      alert("Introduce Contraseña");
       return;
     };
 

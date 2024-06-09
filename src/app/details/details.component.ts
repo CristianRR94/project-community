@@ -85,14 +85,17 @@ export class DetailsComponent implements OnInit{
 
     this.observadorService.deleteEvento(eventoId).subscribe({
       next: () => {
+        alert("Evento eliminado con éxito");
       this.router.navigateByUrl('/index');
     },
     error: (err) => {
       if (err.status === 403) {
         console.error('No tienes permiso para eliminar este evento');
+        alert('No tienes permiso para eliminar este evento');
       }
       else{
         console.error("Error al eliminar evento", err);
+        alert("Error al eliminar evento");
       }
 
     }});
@@ -108,25 +111,25 @@ export class DetailsComponent implements OnInit{
     const listaEventosId = Number(this.route.snapshot.paramMap.get('id'));
     this.observadorService.obtenerParticipantes(listaEventosId).subscribe(participantes=> {
       this.listaParticipantes = participantes;
-      console.log(this.listaEventos?.tipo)
+      //console.log(this.listaEventos?.tipo)
 
 
     const eventoId = Number(this.route.snapshot.paramMap.get('id'));
     this.observadorService.primerParticipante(eventoId).subscribe({
       next: (response: any) => {
         this.esAdmin = response && response.mensaje === true; // Asignación directa a esAdmin
-        console.log(response.mensaje === true ? "true" : "false", this.esAdmin);
+        //console.log(response.mensaje === true ? "true" : "false", this.esAdmin);
       },
       error: (err) => {
         console.error("Error al obtener administrador", err);
       }
     });
-    console.log("sale",this.listaEventos?.administrador);
+    //console.log("sale",this.listaEventos?.administrador);
   });
   }
   getEsAdmin(): boolean{
 
-  console.log("Es admin", this.esAdmin)
+  //console.log("Es admin", this.esAdmin)
   return this.esAdmin;
 }
 
